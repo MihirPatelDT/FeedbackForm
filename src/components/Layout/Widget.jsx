@@ -25,10 +25,7 @@ const Widget = ({ projecId }) => {
       p_message: form.feedback.value,
       p_rating: rating,
     }
-    const { data: returnedData, error } = await supabase.rpc(
-      "add_feedback",
-      data
-    )
+    const { data: returnedData } = await supabase.rpc("add_feedback", data)
     setSubmitted(true)
     console.log(returnedData)
   }
@@ -39,7 +36,7 @@ const Widget = ({ projecId }) => {
       <div className="widget fixed bottom-4 right-4 z-50">
         <Popover>
           <PopoverTrigger asChild>
-            <Button className="rounded-full shadow-lg hover:scale-105">
+            <Button className="rounded-full shadow-lg hover:scale-105 cursor-pointer">
               <MessageCircleIcon className="m-[-2px]" /> Feedback
             </Button>
           </PopoverTrigger>
@@ -58,7 +55,11 @@ const Widget = ({ projecId }) => {
             ) : (
               <div className="space-y-2">
                 <h3 className="text-lg font-bold">Send us your feedback</h3>
-                <form onSubmit={handleSubmit} className="space-y-2">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-2"
+                  autoComplete="off"
+                >
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
@@ -97,7 +98,9 @@ const Widget = ({ projecId }) => {
                         )
                       })}
                     </div>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" className="cursor-pointer">
+                      Submit
+                    </Button>
                   </div>
                 </form>
               </div>
